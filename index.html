@@ -86,7 +86,7 @@
         </form>
         <div class="ct-chart ct-perfect-fourth"></div>
     </div>
-    <div><p>
+    <div><pre>
 var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
     function calculation(el) {
         distance = Number((el.default_location_value.value * 0.01) / 2)
@@ -100,7 +100,9 @@ var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
         stt = 0;
         chartX = [0];
         while ((distance - x) >= last) {
-            f = (9e+9) * (1.6e-19) * (q1 / Math.pow((distance - x), 2) - q2 / Math.pow((distance + x), 2))
+            f = (9e+9) * (1.6e-19) * 
+                (q1 / Math.pow((distance - x), 2) - q2 / 
+                Math.pow((distance + x), 2))
             a = f / 9.10938291e-31
             v = v + a * t
             x = v * t + 0.5 * a * Math.pow(t, 2) + x
@@ -121,7 +123,7 @@ var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
         }
         new Chartist.Line('.ct-chart', data, option);
         return false
-    }    </p></div>
+    }    </pre></div>
     <script>
     var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
     function calculation(el) {
