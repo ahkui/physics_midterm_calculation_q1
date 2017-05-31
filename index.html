@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>物理期中考計算題第一題</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <style>
+    html,
+    body {
+        margin: 0;
+    }
+    
+    table,
+    form,
+    input {
+        width: 100%;
+    }
+    
+    body>div {
+        width: 50%;
+        padding: 5px;
+    }
+    
+    body>div:first-child {
+        float: left;
+    }
+    
+    body>div:last-child {
+        float: right;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <form onsubmit="return calculation(this)">
+            <table>
+                <tr>
+                    <td>
+                        <label for="default_location_value">位置的初始值(cm): </label>
+                    </td>
+                    <td>
+                        <input type="text" name="default_location_value" value="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="default_end_with_q1_value">最終位置與q1的初始值(cm): </label>
+                    </td>
+                    <td>
+                        <input type="text" name="default_end_with_q1_value" value="10">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="t_value">t的值: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="t_value" value="1e-10">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="q1_value">q1的值: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="q1_value" value="3e-9">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="q2_value">q2的值: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="q2_value" value="2e-9">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="計算">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="ct-chart ct-perfect-fourth"></div>
+    </div>
+    <div><pre>
+var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
+    function calculation(el) {
+        distance = Number((el.default_location_value.value * 0.01) / 2)
+        last = Number(el.default_end_with_q1_value.value * 0.01)
+        t = Number(el.t_value.value)
+        q1 = Number(el.q1_value.value)
+        q2 = Number(el.q2_value.value)
+        if (q1 < q2) q2 = [q1, q1 = q2][0];
+        x = 0;
+        v = 0;
+        stt = 0;
+        chartX = [0];
+        while ((distance - x) >= last) {
+            f = (9e+9) * (1.6e-19) * (q1 / Math.pow((distance - x), 2) - q2 / Math.pow((distance + x), 2))
+            a = f / 9.10938291e-31
+            v = v + a * t
+            x = v * t + 0.5 * a * Math.pow(t, 2) + x
+            chartX.push(v);
+        }
+        var data = {
+            series: [chartX],
+        };
+        var option = {
+            showPoint: false,
+            showArea: true,
+            fullWidth: true,
+            axisX: {
+                showGrid: false,
+            },
+            chartPadding: 55,
+
+        }
+        new Chartist.Line('.ct-chart', data, option);
+        return false
+    }    </pre></div>
+    <script>
+    var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
+    function calculation(el) {
+        distance = Number((el.default_location_value.value * 0.01) / 2)
+        last = Number(el.default_end_with_q1_value.value * 0.01)
+        t = Number(el.t_value.value)
+        q1 = Number(el.q1_value.value)
+        q2 = Number(el.q2_value.value)
+        if (q1 < q2) q2 = [q1, q1 = q2][0];
+        x = 0;
+        v = 0;
+        stt = 0;
+        chartX = [0];
+        while ((distance - x) >= last) {
+            f = (9e+9) * (1.6e-19) * (q1 / Math.pow((distance - x), 2) - q2 / Math.pow((distance + x), 2))
+            a = f / 9.10938291e-31
+            v = v + a * t
+            x = v * t + 0.5 * a * Math.pow(t, 2) + x
+            chartX.push(v);
+        }
+        var data = {
+            series: [chartX],
+        };
+        var option = {
+            showPoint: false,
+            showArea: true,
+            fullWidth: true,
+            axisX: {
+                showGrid: false,
+            },
+            chartPadding: 55,
+
+        }
+        new Chartist.Line('.ct-chart', data, option);
+        return false
+    }
+    calculation(document.getElementsByTagName('form'))
+    </script>
+</body>
+
+</html>
