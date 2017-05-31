@@ -21,14 +21,11 @@
     body>div {
         width: 50%;
         padding: 5px;
+        float: right;
     }
     
     body>div:first-child {
-        float: left;
-    }
-    
-    body>div:last-child {
-        float: right;
+        float: left !important;
     }
     </style>
 </head>
@@ -125,7 +122,8 @@ var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
         return false
     }    </pre></div>
     <script>
-    var distance,last,t,q1,q2,x,time,v,stt,all_t,chartX;
+    var distance, last, t, q1, q2, x, time, v, stt, all_t, chartX;
+
     function calculation(el) {
         distance = Number((el.default_location_value.value * 0.01) / 2)
         last = Number(el.default_end_with_q1_value.value * 0.01)
